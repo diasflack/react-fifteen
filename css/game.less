@@ -1,0 +1,29 @@
+@rowNumber: 4;
+
+#gameField {
+    width:500px;
+    height:500px;
+    position:relative;
+    box-sizing:border-box;
+    border:1px solid black;
+    span {
+        display:inline-block;
+        width:percentage(1/@rowNumber);
+        height:percentage(1/@rowNumber);
+        padding:1%;
+        box-sizing:border-box;
+        .inner {
+            display:block;
+            width:100%;
+            height:100%;
+            box-sizing:border-box;
+            text-align:center;
+            font-size:25px;
+            border:1px solid blue;
+            cursor:pointer;
+            }
+        &.cel-0 {
+            visibility:hidden;
+            }
+        }
+    }
