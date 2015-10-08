@@ -6,9 +6,15 @@
     "babelify": "^6.3.0",
     "react": "^0.14.0-rc1",
     "react-dom": "^0.14.0-rc1",
-    "watchify": "^3.4.0"
+    "watchify": "^3.4.0",
+    "browserify": "^11.2.0",
+    "gulp": "^3.9.0",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.0.0",
+    "gulp-uglify": "^1.4.1",
+    "gulp-sourcemaps": "1.6.0"
   },
   "scripts": {
-    "start": "watchify public/index.js -v -t babelify -o public/bundle.js"
+    "start": "./node_modules/.bin/gulp watch"
   }
 }
