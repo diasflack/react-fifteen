@@ -1,1 +1,4 @@
 /.idea
+/public/bundle.js
+/public/css/game.css
+/node_modules

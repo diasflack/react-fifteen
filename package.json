@@ -1,0 +1,14 @@
+{
+  "name": "fiffteen-game-on-react",
+  "description": "Fifteen game on ES6 and React",
+  "main": "index.js",
+  "dependencies": {
+    "babelify": "^6.3.0",
+    "react": "^0.14.0-rc1",
+    "react-dom": "^0.14.0-rc1",
+    "watchify": "^3.4.0"
+  },
+  "scripts": {
+    "start": "watchify public/index.js -v -t babelify -o public/bundle.js"
+  }
+}

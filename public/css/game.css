@@ -7,33 +7,6 @@
 /**
  * Animations
  */
-.flip from {
-  transform: rotateY(0deg);
-}
-.flip to {
-  transform: rotateY(180deg);
-}
-.flip-another from {
-  transform: rotateY(180deg);
-}
-.flip-another to {
-  transform: rotateY(0deg);
-}
-.bounce 0% {
-  -webkit-transform: translateY(-100%);
-}
-.bounce 20%,
-.bounce 50%,
-.bounce 80%,
-.bounce 100% {
-  -webkit-transform: translateY(0);
-}
-.bounce 40% {
-  -webkit-transform: translateY(-30px);
-}
-.bounce 60% {
-  -webkit-transform: translateY(-15px);
-}
 @-webkit-keyframes flip {
   from {
     transform: rotateY(0deg);
@@ -209,7 +182,7 @@
 }
 body {
   font: 10px / 1.8 Helvetica, Arial, sans-serif;
-  color: #333333;
+  color: #333;
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
@@ -219,7 +192,7 @@ body {
   width: 500px;
   height: 500px;
   margin: 20px auto;
-  border: 2px solid #f16745;
+  border: 2px solid #F16745;
 }
 #gameField div {
   display: inline-block;
@@ -242,7 +215,7 @@ body {
   text-align: center;
   font-size: 4rem;
   cursor: pointer;
-  background: #ffc65d;
+  background: #FFC65D;
   transition-property: background;
   transition-duration: .5s;
   transition-timing-function: linear;
@@ -278,7 +251,7 @@ body {
   margin: -60px 0 0 -100px;
   width: 200px;
   height: 120px;
-  background: #4cc3d9;
+  background: #4CC3D9;
   border-radius: 4px;
   text-align: center;
   -webkit-animation: bounce 2s forwards;
