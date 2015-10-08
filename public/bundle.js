@@ -18999,27 +18999,49 @@ ReactDOM.render(React.createElement(_jsxGameField2['default'], null), document.g
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 var React = require('react');
 
-var GameCell = React.createClass({
-    displayName: "GameCell",
+var GameCell = (function (_React$Component) {
+    _inherits(GameCell, _React$Component);
 
-    render: function render() {
-        var animate = this.props.winStateAnimation ? " animate" : "",
-            classString = "cel-" + this.props.id + animate;
-        return React.createElement(
-            "div",
-            { className: classString },
-            React.createElement(
-                "span",
-                { className: "inner animate", onClick: this.props.onClick },
-                this.props.id
-            ),
-            React.createElement("span", { className: "back" })
-        );
+    function GameCell() {
+        _classCallCheck(this, GameCell);
+
+        _get(Object.getPrototypeOf(GameCell.prototype), "constructor", this).apply(this, arguments);
     }
-});
-exports.GameCell = GameCell;
+
+    _createClass(GameCell, [{
+        key: "render",
+        value: function render() {
+            var animate = this.props.winStateAnimation ? " animate" : "",
+                classString = "cel-" + this.props.text + animate;
+            return React.createElement(
+                "div",
+                { className: classString },
+                React.createElement(
+                    "span",
+                    { className: "inner animate", onClick: this.props.onClick },
+                    this.props.text
+                ),
+                React.createElement("span", { className: "back" })
+            );
+        }
+    }]);
+
+    return GameCell;
+})(React.Component);
+
+exports["default"] = GameCell;
+module.exports = exports["default"];
 
 },{"react":156}],160:[function(require,module,exports){
 "use strict";
@@ -19028,7 +19050,15 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _gameCell = require("./gameCell");
 
@@ -19042,75 +19072,94 @@ var _helpers = require("./helpers");
 
 var React = require('react');
 
-var GameField = React.createClass({
-    displayName: "GameField",
+var GameField = (function (_React$Component) {
+    _inherits(GameField, _React$Component);
 
-    getDefaultProps: function getDefaultProps() {
-        return {
-            rowNumber: 4
-        };
-    },
+    function GameField(props) {
+        _classCallCheck(this, GameField);
 
-    getInitialState: function getInitialState() {
-        var winStateArray = (0, _helpers.createFilledArray)(Math.pow(this.props.rowNumber, 2)),
-            cells = (0, _helpers.shuffleArray)(winStateArray);
-        return {
-            cells: cells,
-            emptyCellIndex: cells.indexOf(0),
-            winStateArray: winStateArray.slice(1).join(),
-            winState: false
-        };
-    },
-
-    handlePlayAgainClick: function handlePlayAgainClick() {
-        this.replaceState(this.getInitialState());
-    },
-
-    handleCellClick: function handleCellClick(event) {
-        this.switchCells(parseInt(event.target.innerText));
-    },
-
-    switchCells: function switchCells(cellNumber) {
-        var cells = this.state.cells,
-            emptyCellIndex = this.state.emptyCellIndex,
-            switchCellIndex = cells.indexOf(cellNumber),
-            winState;
-
-        if (this.isSwitchable(switchCellIndex, emptyCellIndex)) {
-            cells[emptyCellIndex] = cellNumber;
-            cells[switchCellIndex] = 0;
-
-            winState = this.isWin(cells, this.state.winStateArray);
-            this.setState({ cells: cells, emptyCellIndex: switchCellIndex, winState: winState });
-        }
-    },
-
-    isSwitchable: function isSwitchable(switchCellIndex, emptyCellIndex) {
-        var result = (emptyCellIndex % this.props.rowNumber !== this.props.rowNumber - 1 && emptyCellIndex + 1) === switchCellIndex || emptyCellIndex % this.props.rowNumber !== 0 && emptyCellIndex - 1 === switchCellIndex || emptyCellIndex + this.props.rowNumber === switchCellIndex || emptyCellIndex - this.props.rowNumber === switchCellIndex;
-        return result;
-    },
-
-    isWin: function isWin(currentState, winState) {
-        return currentState.join().indexOf(winState) > -1;
-    },
-
-    render: function render() {
-        var gameCells = this.state.cells.map((function (el) {
-            return React.createElement(_gameCell2["default"], { id: el, onClick: this.handleCellClick, winStateAnimation: this.state.winState });
-        }).bind(this));
-        var playAgain = this.state.winState ? React.createElement(_playAgain2["default"], { onClick: this.handlePlayAgainClick }) : "";
-
-        return React.createElement(
-            "section",
-            { id: "gameField" },
-            gameCells,
-            " ",
-            playAgain,
-            " "
-        );
+        _get(Object.getPrototypeOf(GameField.prototype), "constructor", this).call(this, props);
+        this._handlePlayAgainClick = this._handlePlayAgainClick.bind(this);
+        this._handleCellClick = this._handleCellClick.bind(this);
+        this.state = this.getState();
     }
-});
-exports.GameField = GameField;
+
+    _createClass(GameField, [{
+        key: "getState",
+        value: function getState() {
+            var winStateArray = (0, _helpers.createFilledArray)(Math.pow(this.props.rowNumber, 2)),
+                cells = (0, _helpers.shuffleArray)(winStateArray);
+            return {
+                cells: cells,
+                emptyCellIndex: cells.indexOf(0),
+                winStateArray: winStateArray.slice(1).join(),
+                winState: false
+            };
+        }
+    }, {
+        key: "_handlePlayAgainClick",
+        value: function _handlePlayAgainClick() {
+            this.setState(this.getState());
+        }
+    }, {
+        key: "_handleCellClick",
+        value: function _handleCellClick(event) {
+            this.switchCells(parseInt(event.target.innerText));
+        }
+    }, {
+        key: "switchCells",
+        value: function switchCells(cellNumber) {
+            var cells = this.state.cells,
+                emptyCellIndex = this.state.emptyCellIndex,
+                switchCellIndex = cells.indexOf(cellNumber),
+                winState;
+
+            if (this.isSwitchable(switchCellIndex, emptyCellIndex)) {
+                cells[emptyCellIndex] = cellNumber;
+                cells[switchCellIndex] = 0;
+
+                winState = this.isWin(cells, this.state.winStateArray);
+                this.setState({ cells: cells, emptyCellIndex: switchCellIndex, winState: winState });
+            }
+        }
+    }, {
+        key: "isSwitchable",
+        value: function isSwitchable(switchCellIndex, emptyCellIndex) {
+            var result = (emptyCellIndex % this.props.rowNumber !== this.props.rowNumber - 1 && emptyCellIndex + 1) === switchCellIndex || emptyCellIndex % this.props.rowNumber !== 0 && emptyCellIndex - 1 === switchCellIndex || emptyCellIndex + this.props.rowNumber === switchCellIndex || emptyCellIndex - this.props.rowNumber === switchCellIndex;
+            return result;
+        }
+    }, {
+        key: "isWin",
+        value: function isWin(currentState, winState) {
+            return currentState.join().indexOf(winState) > -1;
+        }
+    }, {
+        key: "render",
+        value: function render() {
+            var gameCells = this.state.cells.map((function (el) {
+                return React.createElement(_gameCell2["default"], { key: el, text: el, onClick: this._handleCellClick, winStateAnimation: this.state.winState });
+            }).bind(this));
+            var playAgain = this.state.winState ? React.createElement(_playAgain2["default"], { onClick: this._handlePlayAgainClick }) : "";
+
+            return React.createElement(
+                "section",
+                { id: "gameField" },
+                gameCells,
+                " ",
+                playAgain,
+                " "
+            );
+        }
+    }]);
+
+    return GameField;
+})(React.Component);
+
+exports["default"] = GameField;
+
+GameField.propTypes = { rowNumber: React.PropTypes.number };
+GameField.defaultProps = { rowNumber: 4 };
+module.exports = exports["default"];
 
 },{"./gameCell":159,"./helpers":161,"./playAgain":162,"react":156}],161:[function(require,module,exports){
 "use strict";
@@ -19139,28 +19188,50 @@ exports.shuffleArray = shuffleArray;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 var React = require('react');
 
-var PlayAgain = React.createClass({
-    displayName: "PlayAgain",
+var PlayAgain = (function (_React$Component) {
+    _inherits(PlayAgain, _React$Component);
 
-    render: function render() {
-        return React.createElement(
-            "div",
-            { className: "playAgain" },
-            React.createElement(
-                "p",
-                null,
-                "Congrats!"
-            ),
-            React.createElement(
-                "button",
-                { onClick: this.props.onClick },
-                "Play Again!"
-            )
-        );
+    function PlayAgain() {
+        _classCallCheck(this, PlayAgain);
+
+        _get(Object.getPrototypeOf(PlayAgain.prototype), "constructor", this).apply(this, arguments);
     }
-});
-exports.PlayAgain = PlayAgain;
+
+    _createClass(PlayAgain, [{
+        key: "render",
+        value: function render() {
+            return React.createElement(
+                "div",
+                { className: "playAgain" },
+                React.createElement(
+                    "p",
+                    null,
+                    "Congrats!"
+                ),
+                React.createElement(
+                    "button",
+                    { onClick: this.props.onClick },
+                    "Play Again!"
+                )
+            );
+        }
+    }]);
+
+    return PlayAgain;
+})(React.Component);
+
+exports["default"] = PlayAgain;
+module.exports = exports["default"];
 
 },{"react":156}]},{},[158]);

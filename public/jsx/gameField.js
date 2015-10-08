@@ -6,15 +6,15 @@ import GameCell from "./gameCell";
 import PlayAgain from "./playAgain";
 import {createFilledArray, shuffleArray} from "./helpers";
 
-export var GameField = React.createClass({
+export default class GameField extends React.Component{
+    constructor(props) {
+        super(props);
+        this._handlePlayAgainClick = this._handlePlayAgainClick.bind(this);
+        this._handleCellClick = this._handleCellClick.bind(this);
+        this.state = this.getState();
+    }
 
-    getDefaultProps: function() {
-        return {
-            rowNumber: 4
-        }
-    },
-
-    getInitialState: function() {
+    getState() {
         var winStateArray = createFilledArray(Math.pow(this.props.rowNumber, 2)),
             cells = shuffleArray(winStateArray);
         return {
@@ -23,17 +23,17 @@ export var GameField = React.createClass({
             winStateArray: winStateArray.slice(1).join(),
             winState: false
             };
-    },
+    }
 
-    handlePlayAgainClick: function() {
-        this.replaceState(this.getInitialState());
-    },
+    _handlePlayAgainClick() {
+        this.setState(this.getState());
+    }
 
-    handleCellClick: function(event) {
+    _handleCellClick(event) {
         this.switchCells(parseInt(event.target.innerText));
-    },
+    }
 
-    switchCells: function (cellNumber) {
+    switchCells(cellNumber) {
         var cells = this.state.cells,
             emptyCellIndex = this.state.emptyCellIndex,
             switchCellIndex = cells.indexOf(cellNumber),
@@ -46,24 +46,27 @@ export var GameField = React.createClass({
             winState = this.isWin(cells, this.state.winStateArray);
             this.setState({cells: cells, emptyCellIndex:switchCellIndex, winState: winState});
         }
-    },
+    }
 
-    isSwitchable: function (switchCellIndex, emptyCellIndex) {
-        var result = (((emptyCellIndex % this.props.rowNumber) !== (this.props.rowNumber-1) && (emptyCellIndex + 1 )) === switchCellIndex) ||
+    isSwitchable(switchCellIndex, emptyCellIndex) {
+        var result = (((emptyCellIndex % this.props.rowNumber) !== (this.props.rowNumber - 1) && (emptyCellIndex + 1 )) === switchCellIndex) ||
                      ((emptyCellIndex % this.props.rowNumber !== 0) && ((emptyCellIndex - 1) === switchCellIndex)) ||
                      ((emptyCellIndex + this.props.rowNumber) === switchCellIndex) ||
                      ((emptyCellIndex - this.props.rowNumber) === switchCellIndex);
         return result;
-    },
+    }
 
-    isWin: function (currentState, winState) {
+    isWin(currentState, winState) {
         return currentState.join().indexOf(winState) > -1;
-    },
+    }
 
-    render: function() {
-        var gameCells = this.state.cells.map((function(el){return <GameCell id={el} onClick={this.handleCellClick} winStateAnimation={this.state.winState}  />}).bind(this));
-        var playAgain = this.state.winState ? <PlayAgain onClick={this.handlePlayAgainClick} /> : "";
+    render() {
+        var gameCells = this.state.cells.map((function(el){return <GameCell key={el} text={el} onClick={this._handleCellClick} winStateAnimation={this.state.winState}  />}).bind(this));
+        var playAgain = this.state.winState ? <PlayAgain onClick={this._handlePlayAgainClick} /> : "";
 
         return <section id="gameField">{gameCells} {playAgain} </section>;
     }
-});
+}
+
+GameField.propTypes = { rowNumber: React.PropTypes.number };
+GameField.defaultProps = { rowNumber: 4 };

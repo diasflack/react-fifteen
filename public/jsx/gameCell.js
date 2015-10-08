@@ -2,10 +2,10 @@
 
 var React = require('react');
 
-export var GameCell = React.createClass({
-    render: function() {
+export default class GameCell extends React.Component{
+    render() {
         var animate = this.props.winStateAnimation ? " animate" : "",
-            classString = "cel-" + this.props.id + animate;
-        return <div className={classString}><span className="inner animate" onClick={this.props.onClick} >{this.props.id}</span><span className="back"></span></div>
+            classString = "cel-" + this.props.text + animate;
+        return <div className={classString}><span className="inner animate" onClick={this.props.onClick} >{this.props.text}</span><span className="back"></span></div>
     }
-});
+}
