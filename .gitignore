@@ -1,6 +1,7 @@
 /.idea
 /public/bundle.js
 /public/css/game.css
+*.map
 
 ### Node template
 # Logs
