@@ -89,10 +89,7 @@ body {
         .inner, .back {
             width:100%;
             height:100%;
-            -webkit-backface-visibility:hidden;
-            -moz-backface-visibility:hidden;
-            -o-backface-visibility:hidden;
-            backface-visibility:hidden;
+            .vendor-prefix(backface-visibility, hidden);
             }
         .inner {
             display:block;
@@ -116,13 +113,11 @@ body {
             background-size: contain;
             }
         &.animate {
-            -webkit-animation: flip 2s forwards;
-            animation: flip 2s forwards;
+            .vendor-prefix(animation, flip 2s forwards);
             .back {
                 display:block;
                 visibility:visible;
-                -webkit-animation: flip2 2s forwards;
-                animation: flip2 2s forwards;
+                .vendor-prefix(animation, flip2 2s forwards);
                 }
             }
         &.cel-0 {
@@ -139,8 +134,7 @@ body {
         background:@winnerBackground;
         border-radius:4px;
         text-align:center;
-        -webkit-animation:bounce 2s forwards;
-        animation:bounce 2s forwards;
+        .vendor-prefix(animation, bounce 2s forwards);
         p {
             font-size:24px;
             }
